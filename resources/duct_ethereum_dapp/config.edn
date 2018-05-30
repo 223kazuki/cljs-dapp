@@ -1,0 +1,12 @@
+{:duct.core/project-ns  duct-ethereum-dapp
+ :duct.core/environment :production
+ :duct.module/logging {}
+ :duct.module.web/site {}
+ :duct.middleware.web/defaults
+ {:static {:resources ["duct_ethereum_dapp/public"]}}
+ :duct.module/cljs {:main duct-ethereum-dapp.client}
+
+ :duct.module/ataraxy
+ {[:get] [:index]}
+
+ :duct-ethereum-dapp.handler/index {}}

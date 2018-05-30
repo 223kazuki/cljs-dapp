@@ -1,0 +1,2 @@
+{:duct.core/environment :development
+ :duct.core/include ["duct_ethereum_dapp/config"]}
