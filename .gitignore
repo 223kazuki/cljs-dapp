@@ -1,3 +1,13 @@
+# For truffle project.
+build/*
+node_modules/*
+installed_contracts/*
+secrets.json
+*.swp
+coverage/
+coverage.json
+
+# For leiningen project.
 /target
 /logs
 /classes
@@ -9,8 +19,10 @@ pom.xml.asc
 /.lein-*
 /.nrepl-port
 /.dir-locals.el
-/profiles.clj
-/dev/resources/local.edn
-/dev/src/local.clj
-node_modules
-build
+
+/*.log
+/*-init.clj
+/resources/public/js/compiled
+/resources/public/contracts
+out
+.rebel_readline_history

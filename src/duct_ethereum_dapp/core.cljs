@@ -1,11 +1,11 @@
-(ns duct-ethereum-dapp.client.core
+(ns duct-ethereum-dapp.core
   (:require [reagent.core :as reagent]
             [re-frame.core :as re-frame]
             [integrant.core :as ig]
-            [duct-ethereum-dapp.client.events :as events]
-            [duct-ethereum-dapp.client.views :as views]
-            [duct-ethereum-dapp.client.config :as config]
-            [duct-ethereum-dapp.client.routes :as routes]))
+            [duct-ethereum-dapp.events :as events]
+            [duct-ethereum-dapp.views :as views]
+            [duct-ethereum-dapp.config :as config]
+            [duct-ethereum-dapp.routes :as routes]))
 
 (defn dev-setup []
   (when config/debug?
@@ -40,3 +40,6 @@
 (defn stop []
   (ig/halt! @system)
   (reset! system nil))
+
+(defn ^export init []
+  (start))

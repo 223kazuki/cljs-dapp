@@ -1,4 +1,4 @@
-(ns duct-ethereum-dapp.client.db)
+(ns duct-ethereum-dapp.db)
 
 (def default-db
   {:active-panel :none

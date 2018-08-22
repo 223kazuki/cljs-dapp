@@ -1,6 +1,6 @@
-(ns duct-ethereum-dapp.client.events
+(ns duct-ethereum-dapp.events
   (:require [re-frame.core :as re-frame]
-            [duct-ethereum-dapp.client.db :as db]
+            [duct-ethereum-dapp.db :as db]
             [day8.re-frame.http-fx]
             [district0x.re-frame.web3-fx]
             [ajax.core :as ajax]
@@ -16,7 +16,7 @@
  (fn [_ _]
    {:db db/default-db
     :http-xhrio {:method :get
-                 :uri (gstring/format "./build/contracts/%s.json"
+                 :uri (gstring/format "./contracts/%s.json"
                                       (get-in db/default-db [:contract :name]))
                  :timeout 6000
                  :response-format (ajax/json-response-format {:keywords? true})

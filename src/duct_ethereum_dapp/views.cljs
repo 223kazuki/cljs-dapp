@@ -1,8 +1,8 @@
-(ns duct-ethereum-dapp.client.views
+(ns duct-ethereum-dapp.views
   (:require [re-frame.core :as re-frame]
             [reagent.core :as reagent]
-            [duct-ethereum-dapp.client.subs :as subs]
-            [duct-ethereum-dapp.client.events :as events]
+            [duct-ethereum-dapp.subs :as subs]
+            [duct-ethereum-dapp.events :as events]
             [soda-ash.core :as sa]
             [cljsjs.semantic-ui-react]
             [cljsjs.react-transition-group]))

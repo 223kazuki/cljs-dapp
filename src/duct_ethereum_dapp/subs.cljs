@@ -1,4 +1,4 @@
-(ns duct-ethereum-dapp.client.subs
+(ns duct-ethereum-dapp.subs
   (:require [re-frame.core :as re-frame]))
 
 (re-frame/reg-sub

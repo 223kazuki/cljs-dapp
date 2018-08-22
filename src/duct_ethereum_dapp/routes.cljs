@@ -1,8 +1,8 @@
-(ns duct-ethereum-dapp.client.routes
+(ns duct-ethereum-dapp.routes
   (:require [bidi.bidi :as bidi]
             [pushy.core :as pushy]
             [re-frame.core :as re-frame]
-            [duct-ethereum-dapp.client.events :as events]))
+            [duct-ethereum-dapp.events :as events]))
 
 (def routes ["/" {""       :home
                   "about"  :about}])
