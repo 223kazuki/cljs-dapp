@@ -1,106 +1,78 @@
 # duct-ethereum-dapp
 
-## Developing
+## Development
 
-### Deploy contract
+This is a Ethereum dApp using [re-frame](https://github.com/Day8/re-frame).
 
-1. Add [METAMASK](https://metamask.io/) to your chrome.
-2. Create account and get mnemonic.
-2. Set network to Ropsten. 
-3. Buy some ethereum from Ropsten test faucet. (It's free)
-3. Create [infura](https://infura.io/) account and get access token.
-3. Install [truffle](http://truffleframework.com/docs/) to your PC.
+### Development Mode
+
+#### Deploy contract locally:
+
+1. You need to install following commands.
+
+* truffle
+* ganache-cli
+* node/npm
+
+2. Open terminal and run ganache-cli.
 
 ```sh
-cd duct-ethereum-dapp/contract
+ganache-cli -i 1533140371286
+```
+
+3. Open other terminal window and run following commands.
+
+```sh
 npm install
-export INFURA_ACCESS_TOKEN="mig*****************"
-export MNEMONIC="*** *** *** *** *** *** *** *** *** ***"
-truffle migrate --network ropsten
-cp build/contracts/SimpleStorage.json ../resources/duct_ethereum_dapp/public/build/contracts/SimpleStorage.json
+truffle migrate --reset
 ```
 
-### Setup
+#### Start Cider from Emacs:
 
-When you first clone this repository, run:
+Put this in your Emacs config file:
 
-```sh
-lein duct setup
+```
+(setq cider-cljs-lein-repl
+    "(do (require 'figwheel-sidecar.repl-api)
+         (figwheel-sidecar.repl-api/start-figwheel!)
+         (figwheel-sidecar.repl-api/cljs-repl))")
 ```
 
-This will create files for local configuration, and prep your system
-for the project.
+Navigate to a clojurescript file and start a figwheel REPL with `cider-jack-in-clojurescript` or (`C-c M-J`)
 
-Next connect the repository to the [Heroku][] app:
+#### Run application:
 
-```sh
-heroku git:remote -a FIXME
+```
+lein dev
 ```
 
-[heroku]: https://www.heroku.com/
+Figwheel will automatically push cljs changes to the browser.
 
-### Environment
+Wait a bit, then browse to [http://localhost:3449](http://localhost:3449).
 
-To begin developing, start with a REPL.
+#### Run tests:
 
-```sh
-lein repl
+```
+lein clean
+lein doo phantom test once
 ```
 
-Then load the development environment.
+The above command assumes that you have [phantomjs](https://www.npmjs.com/package/phantomjs) installed. However, please note that [doo](https://github.com/bensu/doo) can be configured to run cljs.test in many other JS environments (chrome, ie, safari, opera, slimer, node, rhino, or nashorn).
 
-```clojure
-user=> (dev)
-:loaded
+### Production Build
+
+Deploy contract to Rinkeby test network:
+
+You need some eth in your address.
+
+```
+truffle migrate --reset --network=rinkeby
 ```
 
-Run `go` to prep and initiate the system.
+To compile clojurescript to javascript:
 
-```clojure
-dev=> (go)
-:duct.server.http.jetty/starting-server {:port 3000}
-:initiated
+```
+lein do clean, build
 ```
 
-By default this creates a web server at <http://localhost:3000>.
-
-When you make changes to your source files, use `reset` to reload any
-modified files and reset the server. Changes to CSS or ClojureScript
-files will be hot-loaded into the browser.
-
-```clojure
-dev=> (reset)
-:reloading (...)
-:resumed
-```
-
-If you want to access a ClojureScript REPL, make sure that the site is loaded
-in a browser and run:
-
-```clojure
-dev=> (cljs-repl)
-Waiting for browser connection... Connected.
-To quit, type: :cljs/quit
-nil
-cljs.user=>
-```
-
-### Testing
-
-Testing is fastest through the REPL, as you avoid environment startup
-time.
-
-```clojure
-dev=> (test)
-...
-```
-
-But you can also run tests through Leiningen.
-
-```sh
-lein test
-```
-
-## Legal
-
-Copyright © 2018 Kazuki Tsutsumi
+Then upload resources/public to heroku/IPFS.
