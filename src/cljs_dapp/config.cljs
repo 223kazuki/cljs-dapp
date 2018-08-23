@@ -13,7 +13,7 @@
          "about"  :about}]
 
    ::web3/module
-   {:network-id 1533140371286
+   {:network-id (if debug? 1533140371286 4)
     :contract (-> (slurp "resources/public/contracts/Simplestorage.json")
                   (js/JSON.parse)
                   (js->clj :keywordize-keys true))}
