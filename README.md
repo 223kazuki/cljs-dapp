@@ -20,10 +20,16 @@ This is a Ethereum dApp using [re-frame](https://github.com/Day8/re-frame) and [
 ganache-cli -i 1533140371286
 ```
 
-3. Open other terminal window and run following commands.
+3. Test contract.
 
 ```sh
 npm install
+truffle test
+```
+
+4. Open other terminal window and run following commands.
+
+```sh
 truffle migrate --reset
 ```
 
@@ -46,12 +52,10 @@ Navigate to a clojurescript file and start a figwheel REPL with `cider-jack-in-c
 lein dev
 ```
 
-Figwheel will automatically push cljs changes to the browser.
-
+Figwheel will automatically push cljs changes to the browser.  
 Wait a bit, then browse to [http://localhost:3449](http://localhost:3449).
 
-You need [MetaMask](https://metamask.io/) to connect ethereum private network.
-
+You need [MetaMask](https://metamask.io/) to connect ethereum private network.  
 Install it and connect to http://localhost:8545 hosted by ganache-cli.
 
 #### Run tests:
