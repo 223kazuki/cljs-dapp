@@ -1,8 +1,8 @@
 # cljs-dapp
 
-## Development
-
 This is a Ethereum dApp using [re-frame](https://github.com/Day8/re-frame) and [integrant](https://github.com/weavejester/integrant).
+
+## Development
 
 ### Development Mode
 
