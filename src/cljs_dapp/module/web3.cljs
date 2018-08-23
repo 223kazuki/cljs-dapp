@@ -66,7 +66,7 @@
     (fn-traced [{:keys [db]} [result]]
                {:db (assoc db ::loading? false)})}))
 
-(defmethod ig/init-key ::module
+(defmethod ig/init-key :cljs-dapp.module/web3
   [_ {:keys [network-id contract dev]}]
   (js/console.log (str "Initializing " (pr-str ::module)))
   (load-subs)
@@ -81,7 +81,7 @@
       (re-frame/dispatch-sync [::init web3])
       (re-frame/dispatch-sync [::watch-updated]))))
 
-(defmethod ig/halt-key! ::module
+(defmethod ig/halt-key! :cljs-dapp.module/web3
   [_ _]
   (js/console.log (str "Halting " (pr-str ::module)))
   (re-frame/dispatch-sync [::halt])

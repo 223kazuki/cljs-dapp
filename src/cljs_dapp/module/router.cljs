@@ -48,7 +48,7 @@
 (defn go-to-page [{:keys [history routes]} route]
   (pushy/set-token! history (bidi/path-for routes route)))
 
-(defmethod ig/init-key ::module
+(defmethod ig/init-key :cljs-dapp.module/router
   [_ routes]
   (js/console.log (str "Initializing " (pr-str ::module)))
   (load-subs)
@@ -56,7 +56,7 @@
   (re-frame/dispatch-sync [::init])
   (app-routes routes))
 
-(defmethod ig/halt-key! ::module
+(defmethod ig/halt-key! :cljs-dapp.module/router
   [_ {:keys [history]}]
   (js/console.log (str "Halting " (pr-str ::module)))
   (re-frame/dispatch-sync [::halt])

@@ -1,12 +1,12 @@
-{:cljs-dapp.module.router/module
+{:cljs-dapp.module/router
  ["/" {""       :home
        "about"  :about}]
 
- :cljs-dapp.module.web3/module
+ :cljs-dapp.module/web3
  {:network-id 1533140371286
   :contract #json "build/contracts/Simplestorage.json"}
 
- :cljs-dapp.module.app/module
+ :cljs-dapp.module/app
  {:mount-point-id "app"
-  :routes #ig/ref :cljs-dapp.module.router/module
-  :web3 #ig/ref :cljs-dapp.module.web3/module}}
+  :routes #ig/ref :cljs-dapp.module/router
+  :web3 #ig/ref :cljs-dapp.module/web3}}
