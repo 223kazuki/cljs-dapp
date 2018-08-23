@@ -1,9 +1,9 @@
-(ns duct-ethereum-dapp.config
+(ns cljs-dapp.config
   (:require [integrant.core :as ig]
-            [duct-ethereum-dapp.app :as app]
-            [duct-ethereum-dapp.routes :as routes]
-            [duct-ethereum-dapp.web3 :as web3])
-  (:require-macros [duct-ethereum-dapp.macro :refer [slurp]]))
+            [cljs-dapp.app :as app]
+            [cljs-dapp.routes :as routes]
+            [cljs-dapp.web3 :as web3])
+  (:require-macros [cljs-dapp.macro :refer [slurp]]))
 
 (def debug? ^boolean goog.DEBUG)
 

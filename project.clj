@@ -1,4 +1,4 @@
-(defproject duct-ethereum-dapp "0.1.0-SNAPSHOT"
+(defproject cljs-dapp "0.1.0-SNAPSHOT"
   :description "FIXME"
   :url "http://example.com/FIXME"
   :min-lein-version "2.5.3"
@@ -44,8 +44,8 @@
   {:builds
    [{:id "dev"
      :source-paths ["src"]
-     :figwheel     {:on-jsload "duct-ethereum-dapp.core/reset"}
-     :compiler     {:main                 duct-ethereum-dapp.core
+     :figwheel     {:on-jsload "cljs-dapp.core/reset"}
+     :compiler     {:main                 cljs-dapp.core
                     :output-to            "resources/public/js/compiled/app.js"
                     :output-dir           "resources/public/js/compiled/out"
                     :asset-path           "js/compiled/out"
@@ -57,14 +57,14 @@
                     :external-config      {:devtools/config {:features-to-install :all}}}}
     {:id "min"
      :source-paths ["src"]
-     :compiler     {:main            duct-ethereum-dapp.core
+     :compiler     {:main            cljs-dapp.core
                     :output-to       "resources/public/js/compiled/app.js"
                     :optimizations   :advanced
                     :closure-defines {goog.DEBUG false}
                     :pretty-print    false}}
     {:id "test"
      :source-paths ["src" "test"]
-     :compiler     {:main          duct-ethereum-dapp.runner
+     :compiler     {:main          cljs-dapp.runner
                     :output-to     "resources/public/js/compiled/test.js"
                     :output-dir    "resources/public/js/compiled/test/out"
                     :optimizations :none}}]})

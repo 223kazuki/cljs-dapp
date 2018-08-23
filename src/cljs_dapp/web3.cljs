@@ -1,4 +1,4 @@
-(ns duct-ethereum-dapp.web3
+(ns cljs-dapp.web3
   (:require [integrant.core :as ig]
             [re-frame.core :as re-frame]
             [day8.re-frame.http-fx]
@@ -10,7 +10,7 @@
             [cljs-web3.eth :as web3-eth]
             [goog.string :as gstring]
             [goog.string.format]
-            [duct-ethereum-dapp.utils :refer [clear-namespace]]))
+            [cljs-dapp.utils :refer [clear-namespace]]))
 
 (defn load-subs []
   (re-frame/reg-sub

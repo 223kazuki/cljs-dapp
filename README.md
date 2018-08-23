@@ -1,4 +1,4 @@
-# duct-ethereum-dapp
+# cljs-dapp
 
 ## Development
 

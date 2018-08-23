@@ -1,8 +1,8 @@
-(ns duct-ethereum-dapp.core
+(ns cljs-dapp.core
   (:require [integrant.core :as ig]
             [reagent.core :as reagent]
             [re-frame.core :as re-frame]
-            [duct-ethereum-dapp.config :as config]))
+            [cljs-dapp.config :as config]))
 
 (defonce system (atom nil))
 

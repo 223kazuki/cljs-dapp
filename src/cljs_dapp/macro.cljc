@@ -1,4 +1,4 @@
-(ns duct-ethereum-dapp.macro
+(ns cljs-dapp.macro
   (:refer-clojure :exclude [slurp]))
 
 (defmacro slurp [file]

@@ -12,10 +12,10 @@ module.exports = {
           mnemonic,
           "https://rinkeby.infura.io/" + accessToken
         );
-        console.log(provider.addresses)
+        console.log(provider.addresses);
         return provider;
       },
-      network_id: '*',
+      network_id: 4,
       gas: 6000000
     },
     development: {

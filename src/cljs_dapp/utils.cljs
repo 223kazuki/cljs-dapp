@@ -1,4 +1,4 @@
-(ns duct-ethereum-dapp.utils
+(ns cljs-dapp.utils
   (:require [re-frame.registrar :refer [kinds get-handler clear-handlers]]))
 
 (defn clear-namespace [ns]

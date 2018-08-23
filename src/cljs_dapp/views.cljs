@@ -1,11 +1,11 @@
-(ns duct-ethereum-dapp.views
+(ns cljs-dapp.views
   (:require [re-frame.core :as re-frame]
             [reagent.core :as reagent]
             [cljsjs.semantic-ui-react]
             [cljsjs.react-transition-group]
             [soda-ash.core :as sa]
-            [duct-ethereum-dapp.routes :as routes]
-            [duct-ethereum-dapp.web3 :as web3]))
+            [cljs-dapp.routes :as routes]
+            [cljs-dapp.web3 :as web3]))
 
 (defn home-panel []
   (let [number (re-frame/subscribe [::web3/number])]

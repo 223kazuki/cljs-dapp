@@ -1,9 +1,9 @@
-(ns duct-ethereum-dapp.app
+(ns cljs-dapp.app
   (:require [integrant.core :as ig]
             [reagent.core :as reagent]
             [re-frame.core :as re-frame]
-            [duct-ethereum-dapp.views :as views]
-            [duct-ethereum-dapp.utils :refer [clear-namespace]]))
+            [cljs-dapp.views :as views]
+            [cljs-dapp.utils :refer [clear-namespace]]))
 
 (defmethod ig/init-key ::module
   [_ {:keys []}]

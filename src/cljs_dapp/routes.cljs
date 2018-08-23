@@ -1,10 +1,10 @@
-(ns duct-ethereum-dapp.routes
+(ns cljs-dapp.routes
   (:require [integrant.core :as ig]
             [re-frame.core :as re-frame]
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [bidi.bidi :as bidi]
             [pushy.core :as pushy]
-            [duct-ethereum-dapp.utils :refer [clear-namespace]]))
+            [cljs-dapp.utils :refer [clear-namespace]]))
 
 (defn load-subs []
   (re-frame/reg-sub
