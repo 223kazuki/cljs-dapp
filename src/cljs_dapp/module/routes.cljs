@@ -1,18 +1,18 @@
-(ns cljs-dapp.routes
+(ns cljs-dapp.module.routes
   (:require [integrant.core :as ig]
             [re-frame.core :as re-frame]
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [bidi.bidi :as bidi]
             [pushy.core :as pushy]
-            [cljs-dapp.utils :refer [clear-namespace]]))
+            [cljs-dapp.utils :refer [clear-re-frame-handlers clear-re-frame-db]]))
 
-(defn load-subs []
+(defn- load-subs []
   (re-frame/reg-sub
    ::active-panel
    (fn [db]
      (::active-panel db))))
 
-(defn load-events []
+(defn- load-events []
   (re-frame/reg-event-db
    ::init
    (fn-traced [db _]
@@ -20,14 +20,15 @@
 
   (re-frame/reg-event-db
    ::halt
-   (fn-traced [db _] db))
+   (fn-traced [db _]
+              (clear-re-frame-db db (namespace ::module))))
 
   (re-frame/reg-event-db
    ::set-active-panel
    (fn-traced [db [_ panel-name]]
               (assoc db ::active-panel panel-name))))
 
-(defn app-routes [routes]
+(defn- app-routes [routes]
   (letfn [(dispatch-route [{:keys [:handler :route-params]}]
             (let [panel-name (keyword (str (name handler) "-panel"))]
               (re-frame/dispatch [::set-active-panel panel-name])))
@@ -39,7 +40,7 @@
                           (first))]
               (bidi/match-route routes url)))]
     (let [history (pushy/pushy dispatch-route parse-url)]
-      (.setUseFragment (aget history "history") true)
+      (js-invoke (aget history "history") "setUseFragment" true)
       (pushy/start! history)
       {:history history :routes routes})))
 
@@ -47,14 +48,16 @@
   (pushy/set-token! history (bidi/path-for routes route)))
 
 (defmethod ig/init-key ::module
-  [_ {:keys [routes] :as opts}]
+  [_ routes]
+  (js/console.log (str "Initializing " (pr-str ::module)))
   (load-subs)
   (load-events)
   (re-frame/dispatch-sync [::init])
   (app-routes routes))
 
 (defmethod ig/halt-key! ::module
-  [_ {:keys [history] :as a}]
+  [_ {:keys [history]}]
+  (js/console.log (str "Halting " (pr-str ::module)))
   (re-frame/dispatch-sync [::halt])
-  (clear-namespace (namespace ::module))
+  (clear-re-frame-handlers (namespace ::module))
   (pushy/stop! history))

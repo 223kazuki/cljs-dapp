@@ -2,7 +2,7 @@
 
 ## Development
 
-This is a Ethereum dApp using [re-frame](https://github.com/Day8/re-frame).
+This is a Ethereum dApp using [re-frame](https://github.com/Day8/re-frame) and [integrant](https://github.com/weavejester/integrant).
 
 ### Development Mode
 
@@ -49,6 +49,10 @@ lein dev
 Figwheel will automatically push cljs changes to the browser.
 
 Wait a bit, then browse to [http://localhost:3449](http://localhost:3449).
+
+You need [MetaMask](https://metamask.io/) to connect ethereum private network.
+
+Install it and connect to http://localhost:8545 hosted by ganache-cli.
 
 #### Run tests:
 
