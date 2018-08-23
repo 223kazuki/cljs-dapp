@@ -4,7 +4,7 @@
             [cljsjs.semantic-ui-react]
             [cljsjs.react-transition-group]
             [soda-ash.core :as sa]
-            [cljs-dapp.module.routes :as routes]
+            [cljs-dapp.module.router :as router]
             [cljs-dapp.module.web3 :as web3]))
 
 (defn data-form [{:keys [:configs :handlers]}]
@@ -73,7 +73,7 @@
   (reagent/adapt-react-class js/ReactTransitionGroup.CSSTransition))
 
 (defn app-container []
-  (let [active-panel (re-frame/subscribe [::routes/active-panel])
+  (let [active-panel (re-frame/subscribe [::router/active-panel])
         web3-instance (re-frame/subscribe [::web3/web3-instance])]
     (fn []
       [:div

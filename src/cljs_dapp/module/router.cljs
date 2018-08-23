@@ -1,32 +1,33 @@
-(ns cljs-dapp.module.routes
+(ns cljs-dapp.module.router
   (:require [integrant.core :as ig]
             [re-frame.core :as re-frame]
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [bidi.bidi :as bidi]
             [pushy.core :as pushy]
-            [cljs-dapp.utils :refer [clear-re-frame-handlers clear-re-frame-db]]))
+            [cljs-dapp.utils :refer [reg-event-fxs reg-subs
+                                     clear-re-frame-handlers clear-re-frame-db]]))
 
 (defn- load-subs []
-  (re-frame/reg-sub
-   ::active-panel
-   (fn [db]
-     (::active-panel db))))
+  (reg-subs
+   {::active-panel
+    (fn [db]
+      (::active-panel db))}))
 
 (defn- load-events []
-  (re-frame/reg-event-db
-   ::init
-   (fn-traced [db _]
-              (assoc db ::active-panel :none)))
+  (reg-event-fxs
+   {::init
+    (fn-traced [{:keys [:db]} _]
+               {:db
+                (assoc db ::active-panel :none)})
 
-  (re-frame/reg-event-db
-   ::halt
-   (fn-traced [db _]
-              (clear-re-frame-db db (namespace ::module))))
+    ::halt
+    (fn-traced [{:keys [:db]} _]
+               {:db (clear-re-frame-db db (namespace ::module))})
 
-  (re-frame/reg-event-db
-   ::set-active-panel
-   (fn-traced [db [_ panel-name]]
-              (assoc db ::active-panel panel-name))))
+    ::set-active-panel
+    (fn-traced [{:keys [:db]} [panel-name]]
+               {:db
+                (assoc db ::active-panel panel-name)})}))
 
 (defn- app-routes [routes]
   (letfn [(dispatch-route [{:keys [:handler :route-params]}]

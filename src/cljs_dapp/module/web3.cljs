@@ -4,75 +4,67 @@
             [day8.re-frame.tracing :refer-macros [fn-traced]]
             [district0x.re-frame.web3-fx]
             [cljs-web3.eth :as web3-eth]
-            [cljs-dapp.utils :refer [clear-re-frame-handlers clear-re-frame-db]]))
+            [cljs-dapp.utils :refer [reg-event-fxs reg-subs
+                                     clear-re-frame-handlers clear-re-frame-db]]))
 
 (defn- load-subs []
-  (re-frame/reg-sub
-   ::web3-instance
-   (fn [db] (::web3-instance db)))
+  (reg-subs
+   {::web3-instance
+    (fn [db] (::web3-instance db))
 
-  (re-frame/reg-sub
-   ::my-address
-   (fn [db] (::my-address db)))
+    ::my-address
+    (fn [db] (::my-address db))
 
-  (re-frame/reg-sub
-   ::data
-   (fn [db] (::data db))))
+    ::data
+    (fn [db] (::data db))}))
 
 (defn- load-events []
-  (re-frame/reg-event-db
-   ::init
-   (fn-traced [db [_ web3]]
-              (merge db web3)))
+  (reg-event-fxs
+   {::init
+    (fn-traced [{:keys [db]} [web3]]
+               {:db (merge db web3)})
 
-  (re-frame/reg-event-fx
-   ::halt
-   (fn-traced [{:keys [db]} _]
-              {:db (clear-re-frame-db db (namespace ::module))
-               :web3/stop-watching-all {}}))
+    ::halt
+    (fn-traced [{:keys [db]} _]
+               {:db (clear-re-frame-db db (namespace ::module))
+                :web3/stop-watching-all {}})
 
-  (re-frame/reg-event-fx
-   ::get-data
-   (fn-traced [{:keys [db]} _]
-              {:web3/call {:web3 (::web3-instance db)
-                           :fns [{:instance (::contract-instance db)
-                                  :fn :get
-                                  :on-success [::get-data-success]
-                                  :on-error [::api-failure]}]}}))
+    ::get-data
+    (fn-traced [{:keys [db]} _]
+               {:web3/call {:web3 (::web3-instance db)
+                            :fns [{:instance (::contract-instance db)
+                                   :fn :get
+                                   :on-success [::get-data-success]
+                                   :on-error [::api-failure]}]}})
 
-  (re-frame/reg-event-db
-   ::get-data-success
-   (fn-traced [db [_ result]]
-              (assoc db ::data (first (aget result "c")))))
+    ::get-data-success
+    (fn-traced [{:keys [db]} [result]]
+               {:db (assoc db ::data (js-invoke result "toNumber"))})
 
-  (re-frame/reg-event-fx
-   ::set-data
-   (fn-traced [{:keys [db]} [_ data]]
-              {:db (assoc db ::loading? true)
-               :web3/call {:web3 (::web3-instance db)
-                           :fns [{:instance (::contract-instance db)
-                                  :fn :set
-                                  :args [data]
-                                  :tx-opts {:gas 4500000}
-                                  :on-tx-success [::get-data]
-                                  :on-tx-error [::api-failure]}]}}))
+    ::set-data
+    (fn-traced [{:keys [db]} [data]]
+               {:db (assoc db ::loading? true)
+                :web3/call {:web3 (::web3-instance db)
+                            :fns [{:instance (::contract-instance db)
+                                   :fn :set
+                                   :args [data]
+                                   :tx-opts {:gas 4500000}
+                                   :on-tx-success [::get-data]
+                                   :on-tx-error [::api-failure]}]}})
 
-  (re-frame/reg-event-fx
-   ::watch-updated
-   (fn-traced [{:keys [db]} [_ _]]
-              {:web3/watch-events {:events [{:id :watch-updated
-                                             :event :Updated
-                                             :instance (::contract-instance db)
-                                             :block-filter-opts {:from-block 0
-                                                                 :to-block "latest"}
-                                             :on-success [::get-data]
-                                             :on-error [::api-failure]}]}}))
+    ::watch-updated
+    (fn-traced [{:keys [db]} [_ _]]
+               {:web3/watch-events {:events [{:id :watch-updated
+                                              :event :Updated
+                                              :instance (::contract-instance db)
+                                              :block-filter-opts {:from-block 0
+                                                                  :to-block "latest"}
+                                              :on-success [::get-data]
+                                              :on-error [::api-failure]}]}})
 
-  (re-frame/reg-event-db
-   ::api-failure
-   (fn-traced [db [_ result]]
-              (js/console.error result)
-              (assoc db ::loading? false))))
+    ::api-failure
+    (fn-traced [{:keys [db]} [result]]
+               {:db (assoc db ::loading? false)})}))
 
 (defmethod ig/init-key ::module
   [_ {:keys [network-id contract dev]}]

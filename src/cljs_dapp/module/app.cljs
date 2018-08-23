@@ -4,9 +4,9 @@
             [cljs-dapp.views :as views]))
 
 (defmethod ig/init-key ::module
-  [_ _]
+  [_ {:keys [mount-point-id]}]
   (js/console.log (str "Initializing " (pr-str ::module)))
-  (let [container (.getElementById js/document "app")]
+  (let [container (.getElementById js/document mount-point-id)]
     (reagent/render [views/app-container] container)
     container))
 
