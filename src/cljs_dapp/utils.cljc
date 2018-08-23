@@ -1,10 +1,15 @@
 (ns cljs-dapp.utils
-  (:refer-clojure :exclude [slurp])
-  (:require [re-frame.core :as re-frame]
-            [re-frame.registrar :refer [kinds get-handler clear-handlers]]))
+  (:require [integrant.core :as ig]
+            [re-frame.core :as re-frame]
+            [re-frame.registrar :refer [kinds get-handler clear-handlers]]
+            #?(:clj [clojure.data.json :as json])))
 
-(defmacro slurp [file]
-  #?(:clj (clojure.core/slurp file)))
+(defmacro read-config [file]
+  #?(:clj (ig/read-string
+           {:readers {'json #(-> %
+                                 slurp
+                                 (json/read-str :key-fn keyword))}}
+           (slurp file))))
 
 (defn clear-re-frame-handlers [ns]
   (letfn [(clear [kind]

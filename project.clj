@@ -12,7 +12,8 @@
                  [cljsjs/react-transition-group "2.3.0-0"]
                  [soda-ash "0.78.2" :exclusions [[cljsjs/react]]]
                  [kibu/pushy "0.3.8"]
-                 [bidi "2.1.3"]]
+                 [bidi "2.1.3"]
+                 [org.clojure/data.json "0.2.6"]]
   :plugins [[lein-cljsbuild "1.1.7"]]
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"
                                     "test/js"]
