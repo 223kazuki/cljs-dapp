@@ -41,7 +41,7 @@
                           (first))]
               (bidi/match-route routes url)))]
     (let [history (pushy/pushy dispatch-route parse-url)]
-      (js-invoke (aget history "history") "setUseFragment" true)
+      (.setUseFragment (aget history "history") true)
       (pushy/start! history)
       {:history history :routes routes})))
 

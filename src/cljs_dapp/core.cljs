@@ -25,6 +25,6 @@
   (stop)
   (start))
 
-(defn ^export init []
+(defn ^:export init []
   (dev-setup)
   (start))
