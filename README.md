@@ -6,7 +6,7 @@ This is a Ethereum dApp using [re-frame](https://github.com/Day8/re-frame) and [
 
 ### Development Mode
 
-#### Deploy contract locally:
+#### Deploy Smart Contract Locally:
 
 1. You need to install following commands.
 
