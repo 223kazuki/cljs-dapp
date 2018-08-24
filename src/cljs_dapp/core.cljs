@@ -15,7 +15,7 @@
 (defonce system (atom nil))
 
 (defn start []
-  (reset! system (ig/init  (read-config "resources/config.edn"))))
+  (reset! system (ig/init (read-config "resources/config.edn"))))
 
 (defn stop []
   (ig/halt! @system)
