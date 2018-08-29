@@ -45,9 +45,6 @@
       (pushy/start! history)
       {:history history :routes routes})))
 
-(defn go-to-page [{:keys [history routes]} route]
-  (pushy/set-token! history (bidi/path-for routes route)))
-
 (defmethod ig/init-key :cljs-dapp.module/router
   [_ routes]
   (js/console.log (str "Initializing " (pr-str ::module)))
