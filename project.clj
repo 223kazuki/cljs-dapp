@@ -1,6 +1,6 @@
 (defproject cljs-dapp "0.1.0-SNAPSHOT"
-  :description "FIXME"
-  :url "http://example.com/FIXME"
+  :description "A reloadable and modularized clojurescript DApp."
+  :url "https://qiita.com/223kazuki/items/dd1af292a644e95a3085"
   :min-lein-version "2.5.3"
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.339"]
